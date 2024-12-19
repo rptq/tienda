@@ -92,7 +92,7 @@ public class Shop {
      * show current total cash
      */
     private void showCash() {
-        System.out.println("Dinero actual: "+ cash);
+        System.out.println("Dinero actual: " + cash);
     }
 
     /**
@@ -103,26 +103,25 @@ public class Shop {
             System.out.println("No se pueden añadir más productos");
             return;
         }
-        
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nombre: ");
         String name = scanner.nextLine();
-        for (int i = 0; i < inventory.length; i++) {
-            if (name.equalsIgnoreCase(inventory[i].getName())){
-        
-        }}
+
+        Product existingProduct = findProduct(name);
+        if (existingProduct == null){
         System.out.print("Precio mayorista: ");
-        double wholesalerPrice = scanner.nextDouble();
-        System.out.print("Stock: ");
-        int stock = scanner.nextInt();
+            double wholesalerPrice = scanner.nextDouble();
+            System.out.print("Stock: ");
+            int stock = scanner.nextInt();
 
-        addProduct(new Product(name, wholesalerPrice, true, stock));
+            addProduct(new Product(name, wholesalerPrice, true, stock));
+}
+        else {
+            System.out.println("Este producto ya existe");
         }
-        }
-        
-        
     }
-
+        
     /**
      * add stock for a specific product
      */
@@ -168,7 +167,7 @@ public class Shop {
         System.out.println("Contenido actual de la tienda:");
         for (Product product : inventory) {
             if (product != null) {
-                System.out.println(product.getName()+". Stock: "+product.getStock()+" Precio: "+product.getPublicPrice());
+                System.out.println(product.getName() + ". Stock: " + product.getStock() + " Precio: " + product.getWholesalerPrice());
             }
         }
     }
@@ -264,7 +263,7 @@ public class Shop {
      */
     public Product findProduct(String name) {
         for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] != null && inventory[i].getName().equals(name)) {
+            if (inventory[i] != null && inventory[i].getName().equalsIgnoreCase(name)) {
                 return inventory[i];
             }
         }
