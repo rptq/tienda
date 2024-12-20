@@ -130,7 +130,7 @@ public class Shop {
         System.out.print("Seleccione un nombre de producto: ");
         String name = scanner.next();
         Product product = findProduct(name);
-
+ 
         if (product != null) {
             // ask for stock
             System.out.print("Seleccione la cantidad a añadir: ");
