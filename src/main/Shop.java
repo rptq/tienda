@@ -9,7 +9,7 @@ public class Shop {
     private double cash = 100.00;
     private Product[] inventory;
     private int numberProducts;
-    private Sale[] sales;
+    public Sale[] sales;
 
     final static double TAX_RATE = 1.04;
 
@@ -122,7 +122,7 @@ public class Shop {
         }
     }
         
-    /**
+    /** 
      * add stock for a specific product
      */
     public void addStock() {
@@ -150,12 +150,15 @@ public class Shop {
     private void setExpired() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Seleccione un nombre de producto: ");
-        String name = scanner.next();
+        String name = scanner.nextLine();
 
         Product product = findProduct(name);
 
         if (product != null) {
-            System.out.println("El stock del producto " + name + " ha sido actualizado a " + product.getPublicPrice());
+            
+            product.getName();
+            product.expire();
+            System.out.println("El precio del producto " + name + " ha sido actualizado a " + product.getWholesalerPrice());
 
         }
     }
@@ -196,7 +199,7 @@ public class Shop {
 
             if (product != null && product.isAvailable()) {
                 productAvailable = true;
-                totalAmount += product.getPublicPrice();
+                totalAmount += product.getWholesalerPrice();
                 product.setStock(product.getStock() - 1);
                 // if no more stock, set as not available to sale
                 if (product.getStock() == 0) {
@@ -220,13 +223,17 @@ public class Shop {
      * show all sales
      */
     private void showSales() {
-        System.out.println("Lista de ventas:");
+        
+        
+        
         for (Sale sale : sales) {
+            System.out.println("Lista de ventas:");
             if (sale != null) {
-                System.out.println(sale);
+                System.out.println(sale.toString());
             }
         }
-    }
+        }
+    
 
     /**
      * add a product to inventory
