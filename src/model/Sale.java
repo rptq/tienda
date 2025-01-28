@@ -37,6 +37,10 @@ public class Sale {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+        
+        public double getname() {
+		return amount;
+	}
 
 	@Override
 	public String toString() {
