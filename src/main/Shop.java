@@ -42,6 +42,7 @@ public class Shop {
             System.out.println("5) Ver inventario");
             System.out.println("6) Venta");
             System.out.println("7) Ver ventas");
+            System.out.println("9) Eliminar producto");
             System.out.println("10) Salir programa");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -73,6 +74,10 @@ public class Shop {
 
                 case 7:
                     shop.showSales();
+                    break;
+                    
+                case 9:
+                    shop.eliminarProducto();
                     break;
 
                 case 10:
@@ -292,5 +297,29 @@ public class Shop {
         return null;
         }
         
-
+    
+    public void eliminarProducto(){
+        String name;
+        
+        System.out.println("Que productos que quieras eliminar? (0 para salir)");
+        Scanner sc = new Scanner(System.in);
+        do{
+        System.out.println("Introduce el producto");
+        name = sc.nextLine();
+        
+        Product product = findProduct(name);
+        if (product !=null){
+        inventory.remove(product);
+            System.out.println("El producto se ha eliminado\n");
+        }
+        else if (name.equals("0")){
+                    System.out.println("Saliendo...");
+                }
+        else{
+            System.out.println("El producto no existe\n");
+        }
+        
+        }while (!name.equals("0"));
+    }
+    
 }
