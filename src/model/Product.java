@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 public class Product {
 	private int id;
 	private String name;
@@ -80,4 +82,8 @@ public class Product {
 	public void expire() {
 		this.wholesalerPrice = this.wholesalerPrice * EXPIRATION_RATE;
 	}
+        
+        public String toString() {
+            return this.name;
+        }
 }
