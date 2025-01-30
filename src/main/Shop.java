@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import model.Product;
 import model.Sale;
 import java.util.Scanner;
+import javax.security.auth.spi.LoginModule;
+import model.Employee;
+import model.Logable;
 
 
 public class Shop {
@@ -29,7 +32,14 @@ public class Shop {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
         boolean exit = false;
-
+        
+        
+        
+        do{
+            System.out.println("Login incorrecto \n");
+        }while(initSession()==false);
+        System.out.println("Login correcto.");
+        
         do {
             System.out.println("\n");
             System.out.println("===========================");
@@ -320,6 +330,28 @@ public class Shop {
         }
         
         }while (!name.equals("0"));
+    }
+    
+    
+    public static boolean initSession(){
+    //initSession();
+        // pedir id y pdir constraseña
+        // empl = new Employee() id=123, pw=test
+        // empl.login(id, pw)
+        //Employee emp = new Employee();
+        //emp.login(opcion, psswd);
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("What is your id?");
+        int id = sc.nextInt();
+        Scanner sc1 = new Scanner(System.in);
+        System.out.println("What is your password?");
+        String password = sc1.nextLine();
+        
+        Employee employeeLogin = new Employee();
+        
+        return employeeLogin.login(id, password);
+    
     }
     
 }

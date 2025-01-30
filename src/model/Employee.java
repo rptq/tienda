@@ -10,23 +10,16 @@ import java.util.Scanner;
  *
  * @author RobertTerolLacasta
  */
-public class Employee extends Person implements Logable{
+public class Employee extends Person implements Logable {
 
-int employeeId = 123;
-String password = "test";
+    private int employeeId = EMPLOYEE_ID;
+    private String password = PASSWORD;
+
+    public final static int EMPLOYEE_ID = 123;
+    public final static String PASSWORD = "test";
 
     @Override
-    public boolean login(int employeeId, String password) {
-        System.out.println("Introduce el usuario");
-        
-        int user = employeeId;
-        
-        if (user == 123){
-            if (password.equals("test")){
-                System.out.println("Login correcto");
-                return true;
-            }
-        }
-    return false;
+    public boolean login(int id, String psswd) {
+        return (id == employeeId && psswd.equals(password));
     }
 }
