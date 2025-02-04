@@ -9,5 +9,5 @@ package model;
  * @author RobertTerolLacasta
  */
 public interface Payeable {
-    boolean login(int member, double balance, double total);
+    boolean login(double total);
 }

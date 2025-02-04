@@ -116,7 +116,7 @@ public class Shop {
      * show current total cash
      */
     private void showCash() {
-        System.out.println("Dinero actual: " + cash);
+        System.out.println("Dinero actual: ");
     }
 
     /**
@@ -245,13 +245,17 @@ public class Shop {
         totalAmount = totalAmount * TAX_RATE;
         
         Client c = new Client();
-        
-        
-        totalAmount;
+        if(c.Payeable(Client.MEMBER_ID, Client.BALANCE, totalAmount) == true){
         
         sales.add(new Sale(client, shoppingCart, totalAmount));
         
         System.out.println("Venta realizada con éxito, total: " + totalAmount);
+        }
+        
+        else{
+        System.out.println("Saldo insuficiente");
+        
+        }
     }
 
     /**

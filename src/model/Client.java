@@ -16,10 +16,17 @@ public class Client extends Person implements Payeable {
     public final static int MEMBER_ID = 456;
     public final static double BALANCE = 50.00;
     
-    @Override
-    public boolean Payeable(){
     
+    public boolean Payeable(double total){
     
+    balance = balance-total;
+    if (balance>0){
+    return true;
+    }
+    
+    else{
+    return false;
+    }
     }
     
     
