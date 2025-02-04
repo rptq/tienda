@@ -8,7 +8,19 @@ package model;
  *
  * @author RobertTerolLacasta
  */
-public class Client {
-    int memberid;
-    Amount balance;
+public class Client extends Person implements Payeable {
+    
+    private int memberid = MEMBER_ID;
+    private double balance = BALANCE;
+    
+    public final static int MEMBER_ID = 456;
+    public final static double BALANCE = 50.00;
+    
+    @Override
+    public boolean Payeable(){
+    
+    
+    }
+    
+    
 }

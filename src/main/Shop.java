@@ -5,13 +5,14 @@ import model.Product;
 import model.Sale;
 import java.util.Scanner;
 import javax.security.auth.spi.LoginModule;
+import model.Client;
 import model.Employee;
 import model.Logable;
 
 
 public class Shop {
 
-    private double cash = 100.00;
+    //private double cash = 100.00;
     private ArrayList<Product> inventory = new ArrayList<Product>();
     private int numberProducts;
     public ArrayList <Sale> sales = new ArrayList<Sale>();
@@ -34,11 +35,15 @@ public class Shop {
         boolean exit = false;
         
         
-        
+        int contador=0;
         do{
+            contador++;
+            if(contador>1){
             System.out.println("Login incorrecto \n");
+            }
         }while(initSession()==false);
         System.out.println("Login correcto.");
+        
         
         do {
             System.out.println("\n");
@@ -238,7 +243,11 @@ public class Shop {
 
         // show cost total
         totalAmount = totalAmount * TAX_RATE;
-        cash += totalAmount;
+        
+        Client c = new Client();
+        
+        
+        totalAmount;
         
         sales.add(new Sale(client, shoppingCart, totalAmount));
         
@@ -334,12 +343,6 @@ public class Shop {
     
     
     public static boolean initSession(){
-    //initSession();
-        // pedir id y pdir constraseña
-        // empl = new Employee() id=123, pw=test
-        // empl.login(id, pw)
-        //Employee emp = new Employee();
-        //emp.login(opcion, psswd);
         
         Scanner sc = new Scanner(System.in);
         System.out.println("What is your id?");
