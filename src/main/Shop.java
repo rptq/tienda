@@ -33,7 +33,7 @@ public class Shop {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
         boolean exit = false;
-        
+        Client c = new Client();
         
         int contador=0;
         do{
@@ -84,7 +84,7 @@ public class Shop {
                     break;
 
                 case 6:
-                    shop.sale();
+                    shop.sale(c);
                     break;
 
                 case 7:
@@ -201,20 +201,25 @@ public class Shop {
     /**
      * make a sale of products to a client
      */
-    public void sale() {
+    public void sale(Client c) {
+        
         // ask for client name
         Scanner sc = new Scanner(System.in);
+        int client;
+        do{
         System.out.println("Realizar venta, escribir nombre cliente");
-        String client = sc.nextLine();
-
+        client = sc.nextInt();
+        }while(c.getMemberid()!=client);     
         // sale product until input name is not 0
         double totalAmount = 0.0;
         String name = "";
+        sc.close();
         //Product[] shoppingCart = new Product[10];
         ArrayList<Product> shoppingCart = new ArrayList<Product>();
         while (!name.equals("0")) {
+            Scanner sc1 = new Scanner(System.in);
             System.out.println("Introduce el nombre del producto, escribir 0 para terminar:");
-            name = sc.nextLine();
+            name = sc1.nextLine();
 
             if (name.equals("0")) {
                 break;
@@ -244,16 +249,18 @@ public class Shop {
         // show cost total
         totalAmount = totalAmount * TAX_RATE;
         
-        Client c = new Client();
-        if(c.Payeable(Client.MEMBER_ID, Client.BALANCE, totalAmount) == true){
+        
+        if(c.pay(Client.MEMBER_ID, Client.BALANCE, totalAmount) == true){
         
         sales.add(new Sale(client, shoppingCart, totalAmount));
         
         System.out.println("Venta realizada con éxito, total: " + totalAmount);
+            System.out.println("Saldo actual: " + c.getBalance());
         }
         
+        
         else{
-        System.out.println("Saldo insuficiente");
+        System.out.println("Saldo insuficiente, debes " + c.getBalance());
         
         }
     }

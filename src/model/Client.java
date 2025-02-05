@@ -14,16 +14,33 @@ public class Client extends Person implements Payeable {
     private double balance = BALANCE;
     
     public final static int MEMBER_ID = 456;
-    public final static double BALANCE = 50.00;
+    public final static double BALANCE = 50.0;
+
+    public int getMemberid() {
+        return memberid;
+    }
+
+    public void setMemberid(int memberid) {
+        this.memberid = memberid;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
     
     
-    public boolean Payeable(double total){
+    @Override
+    public boolean pay(int id, double balance, double total){
     
     balance = balance-total;
+    setBalance(balance);
     if (balance>0){
     return true;
     }
-    
     else{
     return false;
     }
