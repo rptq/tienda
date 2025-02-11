@@ -9,6 +9,11 @@ import model.Client;
 import model.Employee;
 import model.Logable;
 
+/*
+Terminada actividad ra7
+corregir errores scanners en int
+*/
+
 public class Shop {
 
     //private double cash = 100.00;
