@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Sale {
-	int client;
+	String client;
 	ArrayList<Product> products;
         
 	double amount;
 
-	public Sale(int client, ArrayList<Product> products, double amount) {
+	public Sale(String client, ArrayList<Product> products, double amount) {
 		super();
 		this.client = client;
 		this.products = products;
 		this.amount = amount;
 	}
 
-	public int getClient() {
+	public String getClient() {
 		return client;
 	}
 
-	public void setClient(int client) {
+	public void setClient(String client) {
 		this.client = client;
 	}
 

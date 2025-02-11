@@ -31,6 +31,15 @@ public class Client extends Person implements Payeable {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
     
     
     @Override
