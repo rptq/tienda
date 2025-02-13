@@ -1,9 +1,16 @@
 package main;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.Product;
 import model.Sale;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.security.auth.spi.LoginModule;
 import model.Client;
 import model.Employee;
@@ -29,8 +36,12 @@ public class Shop {
 
     public static void main(String[] args) {
         Shop shop = new Shop();
-
-        shop.loadInventory();
+        
+        try {
+            shop.loadInventory();
+        } catch (IOException ex) {
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
@@ -106,12 +117,37 @@ public class Shop {
     /**
      * load initial inventory to shop
      */
-    public void loadInventory() {
+    public void loadInventory() throws IOException {
+        
+        
+        String userDir = System.getProperty("user.dir");
+        String separator = File.separator;
+        
+        String filePath = userDir + separator + "files";
+        
+        File files = new File(filePath);
+        
+        if(!files.isDirectory()){
+        
+        files.mkdir();
+        
+        String invPath = filePath + separator + "inputInventory.txt";
+        
+        File inventory = new File(invPath);
+        
+        inventory.createNewFile();
+        
+        }
+        
+        
+        
+        
         inventory.add(new Product("Manzana", 10.00, true, 10));
         inventory.add(new Product("Pera", 20.00, true, 20));
         inventory.add(new Product("Hamburguesa", 30.00, true, 30));
         inventory.add(new Product("Fresa", 5.00, true, 20));
-    }
+        
+        }
 
     /**
      * show current total cash
@@ -204,6 +240,7 @@ public class Shop {
      */
     public void sale() {
         Client c = new Client();
+        int indice = 0;
         // ask for client name
         Scanner sc = new Scanner(System.in);
         String client;
@@ -255,13 +292,14 @@ public class Shop {
         totalAmount = totalAmount * TAX_RATE;
 
         if (c.pay(Client.MEMBER_ID, Client.BALANCE, totalAmount) == true) {
-
-            sales.add(new Sale(c.getNombre(), shoppingCart, totalAmount));
+            indice++;
+            sales.add(new Sale(c.getNombre(), shoppingCart, totalAmount, indice));
 
             System.out.println("Venta realizada con éxito, total: " + totalAmount);
             System.out.println("Saldo actual: " + c.getBalance());
         } else {
-            sales.add(new Sale(c.getNombre(), shoppingCart, totalAmount));
+            indice++;
+            sales.add(new Sale(c.getNombre(), shoppingCart, totalAmount, indice));
             System.out.println("Saldo insuficiente, debes " + c.getBalance());
             
         }
@@ -279,8 +317,43 @@ public class Shop {
             }
 
         }
+        
+        System.out.println("Quieres guardar las ventas de hoy en un archivo? (S/N)");
+        Scanner sc = new Scanner(System.in);
+        
+        if (sc.nextLine().equalsIgnoreCase("s")){
+            
+        String userDir = System.getProperty("user.dir");
+        String separator = File.separator;
+        
+        
+        String salesDir = userDir + separator + "files" + separator + "sales_"+ LocalDate.now() + ".txt";
+        
+        File salesF = new File(salesDir);
+        if (!salesF.isFile()){
+            try {
+                salesF.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+            try {
+        FileWriter fw = new FileWriter(salesF);
+            
+            BufferedWriter bw = new BufferedWriter(fw);
+            
+            bw.write("");
+            
+            bw.flush();
+            bw.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
-
+    }
     /**
      * add a product to inventory
      *
@@ -294,6 +367,7 @@ public class Shop {
             System.out.println("No se pueden añadir más productos, se ha alcanzado el máximo de " + inventory.size());
         }
     }
+
 
     /*
         inventory[numberProducts] = product;

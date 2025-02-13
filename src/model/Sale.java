@@ -6,14 +6,16 @@ import java.util.Arrays;
 public class Sale {
 	String client;
 	ArrayList<Product> products;
+        int indice;
         
 	double amount;
 
-	public Sale(String client, ArrayList<Product> products, double amount) {
+	public Sale(String client, ArrayList<Product> products, double amount, int indice) {
 		super();
 		this.client = client;
 		this.products = products;
 		this.amount = amount;
+                this.indice = indice;
 	}
 
 	public String getClient() {
@@ -44,9 +46,24 @@ public class Sale {
 		return amount;
 	}
 
+    public int getIndice() {
+        return indice;
+    }
+
+    public void setIndice(int indice) {
+        this.indice = indice;
+    }
+        
+        
+        
 	@Override
 	public String toString() {
 		return "Sale [client=" + client + ", products=" + products.toString() + ", amount=" + amount + "]";
 	}
+        
+        public String toStringFileFormat(){
+        return indice + ";Client=" + client + ";\n" + indice + ";Products=" + products.get();
+        
+        }
 
 }
