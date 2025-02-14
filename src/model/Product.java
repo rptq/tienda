@@ -87,6 +87,6 @@ public class Product {
             return this.name;
         }
         public String toStringF() {
-            return this.name + ","+ this.wholesalerPrice+";";
+            return this.name + ","+ this.wholesalerPrice + "EUR;";
         }
 }
