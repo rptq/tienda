@@ -19,8 +19,7 @@ import model.Logable;
 /*
 Terminada actividad ra7
 corregir errores scanners en int
-*/
-
+ */
 public class Shop {
 
     //private double cash = 100.00;
@@ -36,7 +35,7 @@ public class Shop {
 
     public static void main(String[] args) {
         Shop shop = new Shop();
-        
+
         try {
             shop.loadInventory();
         } catch (IOException ex) {
@@ -46,7 +45,6 @@ public class Shop {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
         boolean exit = false;
-        
 
         int contador = 0;
         do {
@@ -118,36 +116,32 @@ public class Shop {
      * load initial inventory to shop
      */
     public void loadInventory() throws IOException {
-        
-        
+
         String userDir = System.getProperty("user.dir");
         String separator = File.separator;
-        
+
         String filePath = userDir + separator + "files";
-        
+
         File files = new File(filePath);
-        
-        if(!files.isDirectory()){
-        
-        files.mkdir();
-        
-        String invPath = filePath + separator + "inputInventory.txt";
-        
-        File inventory = new File(invPath);
-        
-        inventory.createNewFile();
-        
+
+        if (!files.isDirectory()) {
+
+            files.mkdir();
+
+            String invPath = filePath + separator + "inputInventory.txt";
+
+            File inventory = new File(invPath);
+
+            inventory.createNewFile();
+
         }
-        
-        
-        
-        
+
         inventory.add(new Product("Manzana", 10.00, true, 10));
         inventory.add(new Product("Pera", 20.00, true, 20));
         inventory.add(new Product("Hamburguesa", 30.00, true, 30));
         inventory.add(new Product("Fresa", 5.00, true, 20));
-        
-        }
+
+    }
 
     /**
      * show current total cash
@@ -244,11 +238,11 @@ public class Shop {
         // ask for client name
         Scanner sc = new Scanner(System.in);
         String client;
-        
-            System.out.println("Realizar venta, escribir nombre cliente");
 
-            client = sc.nextLine();
-        
+        System.out.println("Realizar venta, escribir nombre cliente");
+
+        client = sc.nextLine();
+
         c.setNombre(client);
         // sale product until input name is not 0
         double totalAmount = 0.0;
@@ -261,30 +255,29 @@ public class Shop {
 
             System.out.println("Introduce el nombre del producto, escribir 0 para terminar:");
             name = sc.nextLine();
-            if(name.equals("0")){
+            if (name.equals("0")) {
                 break;
-            }
-            else{
-            Product product = findProduct(name);
-            boolean productAvailable = false;
+            } else {
+                Product product = findProduct(name);
+                boolean productAvailable = false;
 
-            if (product != null && product.isAvailable()) {
-                productAvailable = true;
-                totalAmount += product.getWholesalerPrice();
-                product.setStock(product.getStock() - 1);
-                // if no more stock, set as not available to sale
-                if (product.getStock() == 0) {
-                    product.setAvailable(false);
+                if (product != null && product.isAvailable()) {
+                    productAvailable = true;
+                    totalAmount += product.getWholesalerPrice();
+                    product.setStock(product.getStock() - 1);
+                    // if no more stock, set as not available to sale
+                    if (product.getStock() == 0) {
+                        product.setAvailable(false);
+                    }
+
+                    shoppingCart.add(product);
+
+                    System.out.println("Producto añadido con éxito");
                 }
 
-                shoppingCart.add(product);
-
-                System.out.println("Producto añadido con éxito");
-            }
-
-            if (!productAvailable) {
-                System.out.println("Producto no encontrado o sin stock");
-            }
+                if (!productAvailable) {
+                    System.out.println("Producto no encontrado o sin stock");
+                }
             }
         } while (!name.equals("0"));
 
@@ -301,7 +294,7 @@ public class Shop {
             indice++;
             sales.add(new Sale(c.getNombre(), shoppingCart, totalAmount, indice));
             System.out.println("Saldo insuficiente, debes " + c.getBalance());
-            
+
         }
     }
 
@@ -317,49 +310,49 @@ public class Shop {
             }
 
         }
-        
+
         System.out.println("Quieres guardar las ventas de hoy en un archivo? (S/N)");
         Scanner sc = new Scanner(System.in);
-        
-        if (sc.nextLine().equalsIgnoreCase("s")){
-            
-        String userDir = System.getProperty("user.dir");
-        String separator = File.separator;
-        
-        
-        String salesDir = userDir + separator + "files" + separator + "sales_"+ LocalDate.now() + ".txt";
-        
-        File salesF = new File(salesDir);
-        if (!salesF.isFile()){
-            try {
-                salesF.createNewFile();
-            } catch (IOException ex) {
-                Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (sc.nextLine().equalsIgnoreCase("s")) {
+
+            String userDir = System.getProperty("user.dir");
+            String separator = File.separator;
+
+            String salesDir = userDir + separator + "files" + separator + "sales_" + LocalDate.now() + ".txt";
+
+            File salesF = new File(salesDir);
+            if (!salesF.isFile()) {
+                try {
+                    salesF.createNewFile();
+                } catch (IOException ex) {
+                    Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        }
-            
+
             try {
-        FileWriter fw = new FileWriter(salesF);
-            
-            BufferedWriter bw = new BufferedWriter(fw);
-            
-            String allSales = "";
-            
+                FileWriter fw = new FileWriter(salesF);
+
+                BufferedWriter bw = new BufferedWriter(fw);
+
+                String allSales = "";
+
                 for (int i = 0; i < sales.size(); i++) {
                     allSales = allSales + sales.get(i).toStringFileFormat();
                 }
-            
-            bw.write(allSales);
-            
-            bw.flush();
-            bw.close();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+
+                bw.write(allSales);
+
+                bw.flush();
+                bw.close();
+
+            } catch (IOException ex) {
+                Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
-        
     }
-    }
+
     /**
      * add a product to inventory
      *
@@ -434,7 +427,7 @@ public class Shop {
     public static boolean initSession() {
 
         Scanner sc = new Scanner(System.in);
-        
+
         System.out.println("What is your id?");
         int id = sc.nextInt();
         Scanner sc1 = new Scanner(System.in);
