@@ -1,7 +1,9 @@
 package main;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -331,14 +333,28 @@ public class Shop {
             }
 
             try {
+                FileReader fr = new FileReader(salesF);
+                
+                BufferedReader br = new BufferedReader(fr);
+                
+                
+                String existingString = br.readLine();
+                
+                br.close();
+                
                 FileWriter fw = new FileWriter(salesF);
 
                 BufferedWriter bw = new BufferedWriter(fw);
-
+                
                 String allSales = "";
+                if (existingString != null){
+                    allSales = existingString;
+                }
+                
+                
 
                 for (int i = 0; i < sales.size(); i++) {
-                    allSales = allSales + sales.get(i).toStringFileFormat();
+                    allSales = allSales+ "\n" + sales.get(i).toStringFileFormat();
                 }
 
                 bw.write(allSales);
