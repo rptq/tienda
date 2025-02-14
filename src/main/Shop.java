@@ -240,7 +240,7 @@ public class Shop {
      */
     public void sale() {
         Client c = new Client();
-        int indice = 0;
+        int indice = sales.size();
         // ask for client name
         Scanner sc = new Scanner(System.in);
         String client;
@@ -343,7 +343,13 @@ public class Shop {
             
             BufferedWriter bw = new BufferedWriter(fw);
             
-            bw.write("");
+            String allSales = "";
+            
+                for (int i = 0; i < sales.size(); i++) {
+                    allSales = allSales + sales.get(i).toStringFileFormat();
+                }
+            
+            bw.write(allSales);
             
             bw.flush();
             bw.close();

@@ -86,4 +86,7 @@ public class Product {
         public String toString() {
             return this.name;
         }
+        public String toStringF() {
+            return this.name + ","+ this.wholesalerPrice+";";
+        }
 }

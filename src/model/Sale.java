@@ -60,9 +60,18 @@ public class Sale {
 	public String toString() {
 		return "Sale [client=" + client + ", products=" + products.toString() + ", amount=" + amount + "]";
 	}
+        public String aux(){
+            String productsS = "";
+            for (int i = 0; i < products.size(); i++) {
+                productsS = productsS + products.get(i).toStringF();
+            }
+            return productsS;
+        
+        }
+        
         
         public String toStringFileFormat(){
-        return indice + ";Client=" + client + ";\n" + indice + ";Products=" + products.get();
+        return indice + ";Client=" + client + ";\n" + indice + ";Products=" + aux() + "\n" + indice + ";Amount=" + amount + ";\n";
         
         }
 
