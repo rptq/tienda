@@ -338,27 +338,57 @@ public class Shop {
                 BufferedReader br = new BufferedReader(fr);
                 
                 
-                String existingString = br.readLine();
                 
+                //String existingString = br.readLine();
+                
+                
+                
+                ArrayList <String> lines = new ArrayList();
+                
+                String allSales = "";
+                
+                String existingString;
+                
+                while ((existingString = br.readLine()) != null) {
+                lines.add(existingString);
+                }
+                
+                
+                
+                fr.close();
                 br.close();
                 
                 FileWriter fw = new FileWriter(salesF);
 
                 BufferedWriter bw = new BufferedWriter(fw);
                 
-                String allSales = "";
-                if (existingString != null){
-                    allSales = existingString;
-                }
                 
+                for (String line : lines) {
+                    for (Sale sale : sales) {
+                        if (line.equals(sale.toStringFileFormat())) {
+                        } else {
+                            bw.write(line);
+                            bw.newLine();
+                            
+                        }
+                        }
+                            
+                    }
                 
-
+                for (Sale sale : sales){
+                    
+                    bw.write(sale.toStringFileFormat());
+                    bw.newLine();
+                    }
+                
+                /*
                 for (int i = 0; i < sales.size(); i++) {
-                    allSales = allSales+ "\n" + sales.get(i).toStringFileFormat();
+                    allSales = "\n" +sales.get(i).toStringFileFormat();
                 }
 
                 bw.write(allSales);
-
+                */
+                
                 bw.flush();
                 bw.close();
 
